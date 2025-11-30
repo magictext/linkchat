@@ -1164,12 +1164,29 @@ export default {
   width: 36px;
   height: 36px;
   padding: 0;
+  border: none;
   border-radius: 6px;
+  background: linear-gradient(135deg, #f7f3e8 0%, #eee9dd 100%);
+  color: #a0a0a0;
   justify-content: center;
   position: relative;
   display: flex; /* 确保使用flexbox */
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+  min-width: 36px; /* 确保最小宽度 */
+  font-size: 1rem; /* 确保图标大小一致 */
+}
+
+.session-list.collapsed li:hover {
+  background: linear-gradient(135deg, #eee9dd 0%, #e4ded2 100%);
+  color: #888888;
+  transform: scale(1.05);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+  width: auto; /* 悬停时显示文字 */
+  padding: 8px 12px;
 }
 
 .session-list.collapsed li span {
@@ -1242,14 +1259,14 @@ export default {
 .new-session-btn {
   width: 100%;
   padding: 10px; /* 更小的内边距 */
-  background: linear-gradient(135deg, #b8b8b8 0%, #a0a0a0 100%); /* 更淡的渐变 */
-  color: white;
+  background: linear-gradient(135deg, #f7f3e8 0%, #eee9dd 100%); /* 与设置按钮一致的渐变 */
+  color: #555; /* 与设置按钮一致的颜色 */
   border: none;
   border-radius: 6px; /* 更小的圆角 */
   cursor: pointer;
   font-weight: 500;
   transition: all 0.3s ease;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03); /* 与会话项一致的阴影 */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1258,13 +1275,14 @@ export default {
 }
 
 .new-session-btn:hover {
-  background: linear-gradient(135deg, #a0a0a0 0%, #888888 100%); /* 更淡的悬停效果 */
+  background: linear-gradient(135deg, #eee9dd 0%, #e4ded2 100%); /* 与设置按钮一致的悬停效果 */
   transform: translateY(-1px);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
 }
 
 .new-session-btn i {
   margin-right: 6px; /* 更小的间距 */
+  color: #a0a0a0; /* 图标颜色与文本保持一致 */
   font-size: 0.9rem; /* 更小的图标 */
 }
 
@@ -1273,10 +1291,23 @@ export default {
   height: 36px;
   padding: 0; /* 移除内边距 */
   margin: 0 auto 12px auto; /* 居中并添加底部间距 */
+  background: linear-gradient(135deg, #f7f3e8 0%, #eee9dd 100%); /* 与设置按钮一致 */
+  color: #a0a0a0; /* 与设置按钮一致 */
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1rem; /* 确保图标大小一致 */
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03); /* 与会话项一致 */
   min-width: 36px; /* 确保最小宽度 */
+}
+
+.new-session-btn.collapsed i {
+  margin: 0; /* 移除收缩状态下的边距 */
+  color: inherit; /* 继承颜色 */
 }
 
 .new-session-btn.collapsed span {
@@ -1284,6 +1315,10 @@ export default {
 }
 
 .new-session-btn.collapsed:hover {
+  background: linear-gradient(135deg, #eee9dd 0%, #e4ded2 100%); /* 与设置按钮一致的悬停效果 */
+  color: #888888;
+  transform: scale(1.05);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
   width: auto; /* 悬停时恢复原始宽度 */
   padding: 8px 12px; /* 添加内边距 */
   white-space: nowrap;
