@@ -4,22 +4,40 @@
       <!-- 侧边栏 -->
       <div class="sidebar" :class="{ 'collapsed': isSidebarCollapsed }">
         <div class="sidebar-content">
-          <h3>会话列表</h3>
-          <ul class="session-list">
+          <div class="sidebar-header">
+            <h3 v-if="!isSidebarCollapsed">会话列表</h3>
+            <button @click="toggleSidebar" class="collapse-btn">
+              <i :class="isSidebarCollapsed ? 'fas fa-chevron-right' : 'fas fa-chevron-left'"></i>
+            </button>
+          </div>
+          <ul class="session-list" v-if="!isSidebarCollapsed">
             <li
               v-for="session in sessions"
               :key="session.id"
               :class="{ 'active': currentSession && currentSession.id === session.id }"
               @click="selectSession(session)"
             >
-              {{ session.title }}
+              <i class="fas fa-comment session-icon"></i>
+              <span>{{ session.title }}</span>
             </li>
           </ul>
-          <button @click="createNewSession" class="new-session-btn">+ 新建会话</button>
+          <button @click="createNewSession" class="new-session-btn" v-if="!isSidebarCollapsed">
+            <i class="fas fa-plus"></i> 新建会话
+          </button>
+          <!-- 当侧边栏收缩时，显示功能按钮 -->
+          <div class="collapsed-buttons" v-if="isSidebarCollapsed">
+            <button @click="createNewSession" class="collapsed-btn" title="新建会话">
+              <i class="fas fa-plus"></i>
+            </button>
+            <button @click="showSettings = true" class="collapsed-btn" title="设置">
+              <i class="fas fa-cog"></i>
+            </button>
+          </div>
         </div>
-        <div class="sidebar-footer">
+        <div class="sidebar-footer" :class="{ 'collapsed': isSidebarCollapsed }">
           <button class="settings-btn" @click="showSettings = true">
-            设置
+            <i class="fas fa-cog"></i>
+            <span v-if="!isSidebarCollapsed">设置</span>
           </button>
         </div>
       </div>
@@ -483,6 +501,11 @@ export default {
       })
     })
 
+    // 切换侧边栏展开/收起状态
+    const toggleSidebar = () => {
+      isSidebarCollapsed.value = !isSidebarCollapsed.value
+    }
+
     // 保存会话到浏览器存储
     const saveSessions = () => {
       localStorage.setItem('linkchat-sessions', JSON.stringify(sessions.value))
@@ -931,6 +954,7 @@ export default {
       toggleNodeCollapse,
       toggleDefaultNodeCollapse,
       toggleAvailableNode,
+      toggleSidebar,
       getDefaultContent,
       removeNestedNode,
       removeDeepNestedNode,
@@ -975,9 +999,133 @@ export default {
   width: 50px;
 }
 
+.collapsed-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.collapsed-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #f7f3e8 0%, #eee9dd 100%);
+  color: #a0a0a0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+}
+
+.collapsed-btn:hover {
+  background: linear-gradient(135deg, #eee9dd 0%, #e4ded2 100%);
+  color: #888888;
+  transform: scale(1.05);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+}
+
+.sidebar-footer.collapsed {
+  padding: 10px 8px; /* 调整收缩状态下的内边距 */
+  display: flex;
+  justify-content: center;
+}
+
+.sidebar-footer.collapsed .settings-btn {
+  width: 36px; /* 固定宽度 */
+  height: 36px;
+  padding: 0; /* 移除内边距 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0; /* 隐藏文字 */
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.sidebar-footer.collapsed .settings-btn span {
+  display: none; /* 隐藏文字 */
+}
+
+.sidebar-footer.collapsed .settings-btn:hover {
+  width: auto; /* 悬停时恢复原始宽度 */
+  font-size: 0.8rem; /* 显示小字体 */
+  padding: 8px 10px; /* 添加内边距 */
+  white-space: nowrap;
+}
+
+.sidebar-footer.collapsed .settings-btn:hover span {
+  display: inline; /* 悬停时显示文字 */
+  margin-left: 6px;
+}
+
 .sidebar-content {
   flex: 1;
   padding: 16px; /* 更小的内边距 */
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.sidebar-header h3 {
+  margin: 0;
+  color: #718096; /* 更淡的标题色 */
+  font-weight: 600;
+  font-size: 1.1rem; /* 更小的字体 */
+}
+
+.collapse-btn {
+  background: linear-gradient(135deg, #b8b8b8 0%, #a0a0a0 100%); /* 更淡的渐变 */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+}
+
+.collapse-btn:hover {
+  background: linear-gradient(135deg, #a0a0a0 0%, #888888 100%); /* 更淡的悬停效果 */
+  transform: scale(1.05);
+}
+
+.session-list li {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px; /* 更小的内边距 */
+  margin: 6px 0; /* 更小的间距 */
+  background: linear-gradient(to right, #f7f3e8, #eee9dd); /* 更淡的渐变 */
+  border-radius: 6px; /* 更小的圆角 */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03); /* 更淡的阴影 */
+  font-size: 0.9rem; /* 更小的字体 */
+}
+
+.session-list li i {
+  margin-right: 8px;
+  color: #a0a0a0; /* 更淡的颜色 */
+}
+
+.session-list li span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .sidebar-content h3 {
