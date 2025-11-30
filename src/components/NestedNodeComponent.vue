@@ -152,12 +152,12 @@ export default {
 
 <style scoped>
 .nested-node {
-  margin-bottom: 10px;
-  border: 1px solid #d0c7b8;
-  border-radius: 10px;
+  margin-bottom: 8px; /* 更小的间距 */
+  border: 1px solid #e2dcd1; /* 更淡的边框 */
+  border-radius: 6px; /* 更小的圆角 */
   overflow: hidden;
-  background: linear-gradient(to bottom, #fcfaf5, #f8f5f0);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  background: linear-gradient(to bottom, #fdfaf3, #fbf7ee); /* 更淡的渐变 */
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04); /* 更淡的阴影 */
 }
 
 .nested-node:last-child {
@@ -165,118 +165,119 @@ export default {
 }
 
 .nested-node-header {
-  padding: 10px;
-  background: linear-gradient(135deg, #e8dfca 0%, #d9d0b7 100%);
+  padding: 9px; /* 更小的内边距 */
+  background: linear-gradient(135deg, #f7f3e8 0%, #eee9dd 100%); /* 更淡的渐变 */
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  font-size: 0.9em;
+  font-size: 0.85rem; /* 更小的字体 */
   font-weight: 500;
 }
 
 .nested-node-header:hover {
-  background: linear-gradient(135deg, #d9d0b7 0%, #c9c0a7 100%);
+  background: linear-gradient(135deg, #eee9dd 0%, #e4ded2 100%); /* 更淡的悬停效果 */
 }
 
 .nested-node-type {
   font-weight: bold;
   color: white;
-  background: linear-gradient(135deg, #a9a194 0%, #999184 100%);
-  padding: 3px 8px;
-  border-radius: 12px;
-  font-size: 0.75em;
+  background: linear-gradient(135deg, #c8c8c8 0%, #b0b0b0 100%); /* 更淡的渐变 */
+  padding: 2px 6px; /* 更小的内边距 */
+  border-radius: 10px; /* 更小的圆角 */
+  font-size: 0.7em; /* 更小的字体 */
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .nested-node-name {
   flex: 1;
-  margin: 0 8px;
-  color: #555;
-  font-size: 0.9em;
+  margin: 0 6px; /* 更小的间距 */
+  color: #666; /* 更淡的颜色 */
+  font-size: 0.85rem; /* 更小的字体 */
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .nested-node-toggle {
-  margin: 0 3px;
+  margin: 0 2px; /* 更小的间距 */
   cursor: pointer;
-  color: #8b7d6b;
-  font-size: 1.1em;
+  color: #a0a0a0; /* 更淡的颜色 */
+  font-size: 1em; /* 更小的字体 */
 }
 
 .nested-node-delete {
   cursor: pointer;
-  font-size: 1.2em;
+  font-size: 1rem; /* 更小的字体 */
   color: #e74c3c;
-  width: 20px;
+  width: 18px; /* 更小的宽度 */
   text-align: center;
   transition: transform 0.2s;
 }
 
 .nested-node-delete:hover {
   color: #c0392b;
-  transform: scale(1.1);
+  transform: scale(1.1); /* 更小的缩放 */
 }
 
 .nested-node.collapsed {
-  height: 34px;
+  height: 30px; /* 更小的高度 */
   overflow: hidden;
 }
 
 .nested-node-content {
-  padding: 10px;
+  padding: 8px; /* 更小的内边距 */
 }
 
 .nested-node-textarea {
   width: 100%;
-  height: 60px;
-  border: 1px solid #d0c7b8;
-  border-radius: 6px;
-  padding: 8px;
+  height: 50px; /* 更小的高度 */
+  border: 1px solid #e2dcd1; /* 更淡的边框 */
+  border-radius: 5px; /* 更小的圆角 */
+  padding: 6px; /* 更小的内边距 */
   resize: vertical;
   font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  background-color: #fefbf6;
-  font-size: 0.9em;
-  color: #333;
+  background-color: #fdfaf3; /* 更淡的背景 */
+  font-size: 0.85rem; /* 更小的字体 */
+  color: #555; /* 更淡的颜色 */
   transition: border-color 0.3s;
 }
 
 .nested-node-textarea:focus {
   outline: none;
-  border-color: #8b7d6b;
-  box-shadow: 0 0 0 2px rgba(139, 125, 107, 0.2);
+  border-color: #b8b8b8; /* 更淡的焦点边框 */
+  box-shadow: 0 0 0 2px rgba(184, 184, 184, 0.2); /* 更淡的焦点阴影 */
 }
 
 .node-insert-slot {
-  border: 1px dashed #d9d0b7;
-  border-radius: 8px;
-  padding: 10px;
-  margin: 10px 0;
+  border: 1px dashed #e5dfd0; /* 更淡的边框 */
+  border-radius: 6px; /* 更小的圆角 */
+  padding: 8px; /* 更小的内边距 */
+  margin: 8px 0; /* 更小的间距 */
   text-align: center;
-  font-size: 0.85em;
-  color: #8b7d6b;
-  min-height: 36px;
+  font-size: 0.8rem; /* 更小的字体 */
+  color: #a0a0a0; /* 更淡的颜色 */
+  min-height: 32px; /* 更小的高度 */
   transition: all 0.3s ease;
-  background-color: rgba(240, 235, 224, 0.3);
+  background-color: rgba(249, 245, 236, 0.2); /* 更淡的背景 */
 }
 
 .node-insert-slot.drag-over {
-  background: linear-gradient(45deg, #f0ebe0, #e8dfca);
-  border: 2px dashed #8b7d6b;
-  transform: scale(1.02);
+  background: linear-gradient(45deg, #f9f5ec, #f0ebe0); /* 更淡的渐变 */
+  border: 2px dashed #b8b8b8; /* 更淡的虚线 */
+  transform: scale(1.01); /* 更小的缩放 */
 }
 
 .insert-text {
-  color: #8b7d6b;
+  color: #b0b0b0; /* 更淡的颜色 */
   font-style: italic;
+  font-size: 0.8rem; /* 更小的字体 */
 }
 
 .nested-nodes {
-  margin-top: 10px;
-  padding-left: 15px;
-  border-left: 2px solid #d9d0b7;
+  margin-top: 8px; /* 更小的间距 */
+  padding-left: 12px; /* 更小的内边距 */
+  border-left: 1px solid #e5dfd0; /* 更淡的边框 */
 }
 </style>

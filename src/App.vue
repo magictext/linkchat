@@ -367,10 +367,10 @@
                   draggable="true"
                   @dragstart="startDrag($event, nodeType)"
                 >
-                  <div class="node-header" @click="toggleAvailableNode(nodeType.type)">
-                    <span class="node-type">{{ nodeType.type.toUpperCase() }}</span>
-                    <span class="node-name">{{ nodeType.name }}</span>
-                    <span class="node-toggle">{{ safeExpandedNodes[nodeType.type] ? '▲' : '▼' }}</span>
+                  <div class="available-node-header" @click="toggleAvailableNode(nodeType.type)">
+                    <span class="available-node-type">{{ nodeType.type.toUpperCase() }}</span>
+                    <span class="available-node-name">{{ nodeType.name }}</span>
+                    <span class="available-node-toggle">{{ safeExpandedNodes[nodeType.type] ? '▲' : '▼' }}</span>
                   </div>
                   <div class="node-preview" v-if="safeExpandedNodes[nodeType.type]">
                     <textarea
@@ -950,22 +950,22 @@ export default {
   font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  color: #4a5568;
   height: 100vh;
   overflow: hidden;
-  background-color: #f5f0e1;
+  background-color: #fbf8f1; /* 更淡的背景色 */
 }
 
 .layout-container {
   display: flex;
   height: 100vh;
-  background-color: #f5f0e1; /* 米色主题 */
+  background-color: #fbf8f1; /* 更淡的米色主题 */
 }
 
 .sidebar {
-  width: 250px;
-  background-color: #e8dfca; /* 浅米色 */
-  border-right: 1px solid #d9d0b7;
+  width: 220px; /* 更窄 */
+  background-color: #f7f3e8; /* 更淡的背景 */
+  border-right: 1px solid #e5dfd0; /* 更淡的边框 */
   display: flex;
   flex-direction: column;
   transition: width 0.3s ease;
@@ -977,141 +977,148 @@ export default {
 
 .sidebar-content {
   flex: 1;
-  padding: 20px;
+  padding: 16px; /* 更小的内边距 */
 }
 
 .sidebar-content h3 {
   margin-top: 0;
-  color: #333;
+  color: #718096; /* 更淡的标题色 */
   font-weight: 600;
-  border-bottom: 2px solid #8b7d6b;
-  padding-bottom: 8px;
+  border-bottom: 1px solid #e2d9c5; /* 更淡的下划线 */
+  padding-bottom: 6px;
+  font-size: 1.1rem; /* 更小的字体 */
 }
 
 .session-list {
   list-style: none;
   padding: 0;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
 }
 
 .session-list li {
-  padding: 12px 15px;
-  margin: 8px 0;
-  background: linear-gradient(to right, #e8dfca, #d9d0b7);
-  border-radius: 8px;
+  padding: 10px 12px; /* 更小的内边距 */
+  margin: 6px 0; /* 更小的间距 */
+  background: linear-gradient(to right, #f7f3e8, #eee9dd); /* 更淡的渐变 */
+  border-radius: 6px; /* 更小的圆角 */
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03); /* 更淡的阴影 */
+  font-size: 0.9rem; /* 更小的字体 */
 }
 
 .session-list li i {
-  margin-right: 10px;
-  color: #8b7d6b;
+  margin-right: 8px;
+  color: #a0a0a0; /* 更淡的颜色 */
 }
 
 .session-list li:hover {
-  background: linear-gradient(to right, #d9d0b7, #c9c0a7);
-  transform: translateX(3px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  background: linear-gradient(to right, #eee9dd, #e4ded2); /* 更淡的悬停效果 */
+  transform: translateX(2px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
 }
 
 .session-list li.active {
-  background: linear-gradient(to right, #c9bfa7, #b9b097);
-  border-left: 4px solid #8b7d6b;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  transform: translateX(3px);
+  background: linear-gradient(to right, #e4ded2, #dcd5c8); /* 更淡的激活状态 */
+  border-left: 3px solid #a3a3a3; /* 更淡的激活边框 */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+  transform: translateX(2px);
 }
 
 .new-session-btn {
   width: 100%;
-  padding: 12px;
-  background: linear-gradient(135deg, #8b7d6b 0%, #7a6c5a 100%); /* 深米色渐变 */
+  padding: 10px; /* 更小的内边距 */
+  background: linear-gradient(135deg, #b8b8b8 0%, #a0a0a0 100%); /* 更淡的渐变 */
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px; /* 更小的圆角 */
   cursor: pointer;
   font-weight: 500;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 0.9rem; /* 更小的字体 */
 }
 
 .new-session-btn:hover {
-  background: linear-gradient(135deg, #7a6c5a 0%, #6a5c4a 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  background: linear-gradient(135deg, #a0a0a0 0%, #888888 100%); /* 更淡的悬停效果 */
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
 }
 
 .new-session-btn i {
-  margin-right: 8px;
+  margin-right: 6px; /* 更小的间距 */
+  font-size: 0.9rem; /* 更小的图标 */
 }
 
 .sidebar-footer {
-  padding: 20px;
-  border-top: 1px solid #d9d0b7;
-  background: linear-gradient(to bottom, rgba(232, 223, 202, 0.5), rgba(217, 208, 183, 0.5));
+  padding: 16px; /* 更小的内边距 */
+  border-top: 1px solid #e5dfd0; /* 更淡的边框 */
+  background: linear-gradient(to bottom, rgba(247, 243, 232, 0.5), rgba(238, 233, 221, 0.5)); /* 更淡的背景 */
 }
 
 .settings-btn {
   width: 100%;
-  padding: 12px;
-  background: linear-gradient(135deg, #8b7d6b 0%, #7a6c5a 100%); /* 深米色渐变 */
+  padding: 10px; /* 更小的内边距 */
+  background: linear-gradient(135deg, #b8b8b8 0%, #a0a0a0 100%); /* 更淡的渐变 */
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px; /* 更小的圆角 */
   cursor: pointer;
   font-weight: 500;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 0.9rem; /* 更小的字体 */
 }
 
 .settings-btn:hover {
-  background: linear-gradient(135deg, #7a6c5a 0%, #6a5c4a 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  background: linear-gradient(135deg, #a0a0a0 0%, #888888 100%); /* 更淡的悬停效果 */
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
 }
 
 .settings-btn i {
-  margin-right: 8px;
+  margin-right: 6px; /* 更小的间距 */
+  font-size: 0.9rem; /* 更小的图标 */
 }
 
 .main-content {
   flex: 1;
   overflow: hidden;
-  background-color: #fefbf6; /* 浅米白 */
+  background-color: #fdfaf3; /* 更淡的背景 */
 }
 
 .view-toggle {
-  padding: 12px 20px;
-  background: linear-gradient(135deg, #e8dfca 0%, #d9d0b7 100%); /* 浅米色渐变 */
-  border-bottom: 1px solid #d9d0b7;
+  padding: 10px 16px; /* 更小的内边距 */
+  background: linear-gradient(135deg, #f7f3e8 0%, #eee9dd 100%); /* 更淡的渐变 */
+  border-bottom: 1px solid #e5dfd0; /* 更淡的边框 */
   display: flex;
-  gap: 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  gap: 8px; /* 更小的间隙 */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
 }
 
 .view-toggle button {
-  padding: 10px 20px;
-  background-color: #f0ebe0;
+  padding: 8px 16px; /* 更小的内边距 */
+  background-color: #f9f5ec; /* 更淡的背景 */
   border: none;
-  border-radius: 20px;
+  border-radius: 16px; /* 更小的圆角 */
   cursor: pointer;
   font-weight: 500;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  font-size: 0.9rem; /* 更小的字体 */
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
 }
 
 .view-toggle button.active {
-  background: linear-gradient(135deg, #8b7d6b 0%, #7a6c5a 100%); /* 深米色渐变 */
+  background: linear-gradient(135deg, #c0c0c0 0%, #a8a8a8 100%); /* 更淡的激活渐变 */
   color: white;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .template-view {
@@ -1144,151 +1151,111 @@ export default {
 }
 
 .template-instructions {
-  margin-bottom: 15px;
+  margin-bottom: 12px; /* 更小的间距 */
   text-align: center;
-  color: #666;
-  padding: 10px;
-  background: linear-gradient(to right, #f8f5f0, #f0ebe0);
-  border-radius: 8px;
-  border: 1px dashed #d9d0b7;
+  color: #888; /* 更淡的颜色 */
+  padding: 8px;
+  background: linear-gradient(to right, #fbf8f1, #f7f3e8); /* 更淡的渐变 */
+  border-radius: 6px; /* 更小的圆角 */
+  border: 1px dashed #e2d9c5; /* 更淡的边框 */
+  font-size: 0.9rem; /* 更小的字体 */
 }
 
 .template-instructions h3 {
-  margin: 0 0 5px 0;
-  color: #5a5248;
+  margin: 0 0 4px 0; /* 更小的间距 */
+  color: #718096; /* 更淡的颜色 */
   font-weight: 600;
+  font-size: 1rem; /* 更小的字体 */
 }
 
 .template-instructions p {
-  margin: 5px 0;
-  font-size: 0.9em;
-  color: #8b7d6b;
+  margin: 4px 0; /* 更小的间距 */
+  font-size: 0.85rem; /* 更小的字体 */
+  color: #a0a0a0; /* 更淡的颜色 */
 }
 
 .template-area.drag-over {
-  background-color: #f0ebe0;
-  border: 2px dashed #8b7d6b;
-  border-radius: 12px;
-  box-shadow: inset 0 0 10px rgba(139, 125, 107, 0.2);
+  background-color: #f9f5ec; /* 更淡的背景 */
+  border: 2px dashed #c0c0c0; /* 更淡的虚线 */
+  border-radius: 8px; /* 更小的圆角 */
+  box-shadow: inset 0 0 8px rgba(128, 128, 128, 0.15); /* 更淡的阴影 */
 }
 
 .template-node {
-  margin-bottom: 15px;
-  border: 1px solid #d9d0b7;
-  border-radius: 12px;
+  margin-bottom: 12px; /* 更小的间距 */
+  border: 1px solid #e5dfd0; /* 更淡的边框 */
+  border-radius: 8px; /* 更小的圆角 */
   overflow: hidden;
   background-color: white;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 1px 5px rgba(0,0,0,0.06); /* 更淡的阴影 */
   transition: all 0.3s ease;
 }
 
 .template-node:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08); /* 更淡的悬停阴影 */
 }
 
 .node-header {
-  padding: 10px;
-  background-color: #e8dfca; /* 浅米色 */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.node-type {
-  font-weight: bold;
-  color: #333;
-}
-
-.node-delete {
-  cursor: pointer;
-  font-size: 18px;
-  color: #8b7d6b;
-}
-
-.node-content {
-  padding: 10px;
-}
-
-.node-textarea {
-  width: 100%;
-  height: 100px;
-  border: 1px solid #d9d0b7;
-  border-radius: 8px;
-  padding: 12px;
-  resize: vertical;
-  font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  background-color: #fefbf6;
-  color: #333;
-  font-size: 0.95rem;
-  line-height: 1.5;
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.node-textarea:focus {
-  outline: none;
-  border-color: #8b7d6b;
-  box-shadow: 0 0 0 2px rgba(139, 125, 107, 0.2);
-}
-
-.node-header {
-  padding: 12px;
-  background: linear-gradient(135deg, #e8dfca 0%, #d9d0b7 100%); /* 浅米色渐变 */
+  padding: 10px; /* 更小的内边距 */
+  background: linear-gradient(135deg, #f7f3e8 0%, #eee9dd 100%); /* 更淡的渐变 */
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
   font-weight: 500;
   transition: all 0.2s ease;
+  font-size: 0.9rem; /* 更小的字体 */
 }
 
 .node-header:hover {
-  background: linear-gradient(135deg, #d9d0b7 0%, #c9c0a7 100%);
+  background: linear-gradient(135deg, #eee9dd 0%, #e4ded2 100%); /* 更淡的悬停效果 */
 }
 
 .node-type {
   font-weight: bold;
   color: white;
-  background: linear-gradient(135deg, #8b7d6b 0%, #7a6c5a 100%);
-  padding: 4px 10px;
-  border-radius: 15px;
-  font-size: 0.8em;
+  background: linear-gradient(135deg, #b8b8b8 0%, #a0a0a0 100%); /* 更淡的渐变 */
+  padding: 3px 8px; /* 更小的内边距 */
+  border-radius: 12px; /* 更小的圆角 */
+  font-size: 0.75em; /* 更小的字体 */
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .node-name {
   flex: 1;
-  margin: 0 12px;
-  color: #333;
+  margin: 0 10px; /* 更小的间距 */
+  color: #555; /* 更淡的颜色 */
   font-weight: 500;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-size: 0.9rem; /* 更小的字体 */
 }
 
 .node-toggle {
-  margin: 0 5px;
+  margin: 0 4px; /* 更小的间距 */
   cursor: pointer;
-  color: #8b7d6b;
-  font-size: 1.2em;
+  color: #a0a0a0; /* 更淡的颜色 */
+  font-size: 1.1em; /* 更小的字体 */
 }
 
 .node-delete {
   cursor: pointer;
-  font-size: 1.4em;
+  font-size: 1.2em; /* 更小的字体 */
   color: #e74c3c;
-  width: 24px;
+  width: 20px; /* 更小的宽度 */
   text-align: center;
   transition: transform 0.2s;
 }
 
 .node-delete:hover {
   color: #c0392b;
-  transform: scale(1.2);
+  transform: scale(1.1); /* 更小的缩放 */
 }
 
 .template-node.collapsed {
-  height: 44px;
+  height: 36px; /* 更小的高度 */
   overflow: hidden;
 }
 
@@ -1297,8 +1264,31 @@ export default {
 }
 
 .node-content {
-  padding: 12px;
+  padding: 10px; /* 更小的内边距 */
 }
+
+.node-textarea {
+  width: 100%;
+  height: 80px; /* 更小的高度 */
+  border: 1px solid #e5dfd0; /* 更淡的边框 */
+  border-radius: 6px; /* 更小的圆角 */
+  padding: 10px; /* 更小的内边距 */
+  resize: vertical;
+  font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background-color: #fdfaf3; /* 更淡的背景 */
+  color: #555; /* 更淡的颜色 */
+  font-size: 0.9rem; /* 更小的字体 */
+  line-height: 1.4; /* 更小的行高 */
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.node-textarea:focus {
+  outline: none;
+  border-color: #b8b8b8; /* 更淡的焦点边框 */
+  box-shadow: 0 0 0 2px rgba(184, 184, 184, 0.2); /* 更淡的焦点阴影 */
+}
+
+/* 重复的样式定义，移除以避免冲突 */
 
 .node-insert-slot {
   border: 1px dashed #d9d0b7;
@@ -1438,31 +1428,32 @@ export default {
 }
 
 .available-node-container {
-  margin-bottom: 8px;
+  margin-bottom: 6px; /* 更小的间距 */
 }
 
 .available-node {
-  background: linear-gradient(135deg, #e8dfca 0%, #d9d0b7 100%);
-  border-radius: 12px;
+  background: linear-gradient(135deg, #f7f3e8 0%, #eee9dd 100%); /* 更淡的渐变 */
+  border-radius: 6px; /* 更小的圆角 */
   cursor: grab;
   user-select: none;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06); /* 更淡的阴影 */
   overflow: hidden;
+  font-size: 0.9rem; /* 更小的字体 */
 }
 
 .available-node:hover {
-  background: linear-gradient(135deg, #d9d0b7 0%, #c9c0a7 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+  background: linear-gradient(135deg, #eee9dd 0%, #e4ded2 100%); /* 更淡的悬停效果 */
+  transform: translateY(-1px); /* 更小的变换 */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 更淡的阴影 */
 }
 
 .available-node.expanded {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12); /* 更淡的阴影 */
 }
 
-.node-header {
-  padding: 12px;
+.available-node-header {
+  padding: 10px; /* 更小的内边距 */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1470,60 +1461,60 @@ export default {
   font-weight: 500;
 }
 
-.node-type {
+.available-node-type {
   font-weight: bold;
   color: white;
-  background: linear-gradient(135deg, #8b7d6b 0%, #7a6c5a 100%);
-  padding: 4px 10px;
-  border-radius: 15px;
-  font-size: 0.8em;
+  background: linear-gradient(135deg, #b8b8b8 0%, #a0a0a0 100%); /* 更淡的渐变 */
+  padding: 3px 7px; /* 更小的内边距 */
+  border-radius: 12px; /* 更小的圆角 */
+  font-size: 0.75em; /* 更小的字体 */
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
-.node-name {
+.available-node-name {
   flex: 1;
-  margin: 0 12px;
-  color: #333;
+  margin: 0 8px; /* 更小的间距 */
+  color: #555; /* 更淡的颜色 */
   font-weight: 500;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.node-toggle {
-  margin: 0 5px;
+.available-node-toggle {
+  margin: 0 3px; /* 更小的间距 */
   cursor: pointer;
-  color: #8b7d6b;
-  font-size: 1.2em;
+  color: #a0a0a0; /* 更淡的颜色 */
+  font-size: 1.1em; /* 更小的字体 */
 }
 
 .node-preview {
-  padding: 12px;
-  border-top: 1px solid #d9d0b7;
-  background-color: #fefbf6;
+  padding: 10px; /* 更小的内边距 */
+  border-top: 1px solid #e5dfd0; /* 更淡的边框 */
+  background-color: #fdfaf3; /* 更淡的背景 */
 }
 
 .node-textarea {
   width: 100%;
-  height: 80px;
-  border: 1px solid #d9d0b7;
-  border-radius: 8px;
-  padding: 12px;
+  height: 60px; /* 更小的高度 */
+  border: 1px solid #e5dfd0; /* 更淡的边框 */
+  border-radius: 5px; /* 更小的圆角 */
+  padding: 8px; /* 更小的内边距 */
   resize: vertical;
   font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  background-color: #fefbf6;
-  color: #333;
-  font-size: 0.95rem;
-  line-height: 1.5;
+  background-color: #fdfaf3; /* 更淡的背景 */
+  color: #555; /* 更淡的颜色 */
+  font-size: 0.85rem; /* 更小的字体 */
+  line-height: 1.4; /* 更小的行高 */
   transition: border-color 0.3s;
   box-sizing: border-box;
 }
 
 .node-textarea:focus {
   outline: none;
-  border-color: #8b7d6b;
-  box-shadow: 0 0 0 2px rgba(139, 125, 107, 0.2);
+  border-color: #b8b8b8; /* 更淡的焦点边框 */
+  box-shadow: 0 0 0 2px rgba(184, 184, 184, 0.2); /* 更淡的焦点阴影 */
 }
 
 .chat-view {

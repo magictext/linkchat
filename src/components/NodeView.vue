@@ -51,45 +51,47 @@ export default {
   position: relative;
   width: 100%;
   height: 500px;
-  border: 1px solid #d9d0b7;
-  border-radius: 8px;
+  border: 1px solid #e5dfd0; /* 更淡的边框 */
+  border-radius: 6px; /* 更小的圆角 */
   overflow: hidden;
-  background-color: #fefbf6;
+  background-color: #fdfaf3; /* 更淡的背景 */
   font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   background-image:
-    radial-gradient(circle, #d9d0b7 1px, transparent 1px);
+    radial-gradient(circle, #e2d9c5 1px, transparent 1px); /* 更淡的网格 */
   background-size: 20px 20px;
 }
 
 .node {
   position: absolute;
-  width: 200px;
-  border: 1px solid #d9d0b7;
-  border-radius: 8px;
+  width: 180px; /* 更小的宽度 */
+  border: 1px solid #e5dfd0; /* 更淡的边框 */
+  border-radius: 6px; /* 更小的圆角 */
   background-color: white;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08); /* 更淡的阴影 */
   transition: all 0.3s ease;
+  font-size: 0.9rem; /* 更小的字体 */
 }
 
 .node:hover {
-  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
-  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12); /* 更淡的阴影 */
+  transform: translateY(-1px); /* 更小的变换 */
 }
 
 .node-header {
-  padding: 10px;
-  background: linear-gradient(135deg, #8b7d6b 0%, #7a6c5a 100%);
+  padding: 8px; /* 更小的内边距 */
+  background: linear-gradient(135deg, #b8b8b8 0%, #a0a0a0 100%); /* 更淡的渐变 */
   color: white;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  border-top-left-radius: 6px; /* 更小的圆角 */
+  border-top-right-radius: 6px;
   font-weight: 600;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-size: 0.9rem; /* 更小的字体 */
 }
 
 .node-content {
-  padding: 15px;
-  font-size: 0.9rem;
-  line-height: 1.5;
+  padding: 12px; /* 更小的内边距 */
+  font-size: 0.85rem; /* 更小的字体 */
+  line-height: 1.4; /* 更小的行高 */
 }

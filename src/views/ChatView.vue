@@ -161,22 +161,22 @@ export default {
   display: flex;
   flex-direction: column;
   height: 100%;
-  background-color: #fefbf6; /* 浅米白 */
+  background-color: #fdfaf3; /* 更淡的背景 */
   font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
 .chat-header {
-  padding: 15px 20px;
-  background: linear-gradient(135deg, #e8dfca 0%, #d9d0b7 100%); /* 浅米色渐变 */
-  border-bottom: 1px solid #d9d0b7;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  padding: 12px 16px; /* 更小的内边距 */
+  background: linear-gradient(135deg, #f7f3e8 0%, #eee9dd 100%); /* 更淡的渐变 */
+  border-bottom: 1px solid #e5dfd0; /* 更淡的边框 */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03); /* 更淡的阴影 */
 }
 
 .chat-header h3 {
   margin: 0;
-  color: #333;
+  color: #555; /* 更淡的颜色 */
   font-weight: 600;
-  font-size: 1.2rem;
+  font-size: 1.1rem; /* 更小的字体 */
 }
 
 .chat-messages {

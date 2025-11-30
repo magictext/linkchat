@@ -228,7 +228,7 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: column;
-  background-color: #f5f0e1; /* 米色主题 */
+  background-color: #fbf8f1; /* 更淡的背景 */
   font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
