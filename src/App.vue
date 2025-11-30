@@ -1181,10 +1181,8 @@ export default {
 }
 
 .session-list.collapsed li:hover {
-  background: linear-gradient(135deg, #eee9dd 0%, #e4ded2 100%);
+  background: linear-gradient(135deg, #e4ded2 0%, #dcd5c8 100%); /* 色调加深效果 */
   color: #888888;
-  transform: scale(1.05);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
   width: auto; /* 悬停时显示文字 */
   padding: 8px 12px;
 }
@@ -1244,16 +1242,12 @@ export default {
 }
 
 .session-list li:hover {
-  background: linear-gradient(to right, #eee9dd, #e4ded2); /* 更淡的悬停效果 */
-  transform: translateX(2px);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+  background: linear-gradient(to right, #e4ded2, #dcd5c8); /* 色调加深效果 */
 }
 
 .session-list li.active {
-  background: linear-gradient(to right, #e4ded2, #dcd5c8); /* 更淡的激活状态 */
-  border-left: 3px solid #a3a3a3; /* 更淡的激活边框 */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
-  transform: translateX(2px);
+  background: linear-gradient(to right, #d0c8bc, #c8c0b4); /* 激活时再加深一级 */
+  border-left: 3px solid #a3a3a3; /* 保持激活边框 */
 }
 
 .new-session-btn {
