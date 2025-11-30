@@ -22,7 +22,7 @@
               <span v-if="!isSidebarCollapsed">{{ session.title }}</span>
             </li>
           </ul>
-          <div class="sidebar-buttons">
+          <div class="sidebar-buttons" :class="{ 'collapsed': isSidebarCollapsed }">
             <button @click="createNewSession" class="new-session-btn" :class="{ 'collapsed': isSidebarCollapsed }">
               <i class="fas fa-plus"></i>
               <span v-if="!isSidebarCollapsed">新建会话</span>
@@ -1077,7 +1077,7 @@ export default {
 
 .sidebar-content {
   flex: 1;
-  padding: 16px; /* 更小的内边距 */
+  padding: 10px; /* 更小的内边距 */
   display: flex;
   flex-direction: column;
   overflow: hidden; /* 防止溢出 */
@@ -1286,11 +1286,22 @@ export default {
   font-size: 0.9rem; /* 更小的图标 */
 }
 
+.sidebar-buttons {
+  margin-bottom: 12px;
+}
+
+.sidebar-buttons.collapsed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
 .new-session-btn.collapsed {
   width: 36px; /* 固定宽度 */
   height: 36px;
   padding: 0; /* 移除内边距 */
-  margin: 0 auto 12px auto; /* 居中并添加底部间距 */
+  margin: 0 0 12px 0; /* 只栏收缩时只保留底部间距 */
   background: linear-gradient(135deg, #f7f3e8 0%, #eee9dd 100%); /* 与设置按钮一致 */
   color: #a0a0a0; /* 与设置按钮一致 */
   border: none;
