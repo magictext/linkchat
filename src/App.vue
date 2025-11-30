@@ -24,13 +24,10 @@
           <button @click="createNewSession" class="new-session-btn" v-if="!isSidebarCollapsed">
             <i class="fas fa-plus"></i> 新建会话
           </button>
-          <!-- 当侧边栏收缩时，显示功能按钮 -->
+          <!-- 当侧边栏收缩时，显示新建会话按钮 -->
           <div class="collapsed-buttons" v-if="isSidebarCollapsed">
             <button @click="createNewSession" class="collapsed-btn" title="新建会话">
               <i class="fas fa-plus"></i>
-            </button>
-            <button @click="showSettings = true" class="collapsed-btn" title="设置">
-              <i class="fas fa-cog"></i>
             </button>
           </div>
         </div>
