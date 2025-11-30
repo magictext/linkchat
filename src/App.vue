@@ -93,12 +93,78 @@
                             <span class="nested-node-delete" @click.stop="removeNestedNode(index, 'before', nestedIndex)">×</span>
                           </div>
                           <div class="nested-node-content" v-if="!nestedNode.collapsed">
+                            <!-- 嵌套节点的前插槽 -->
+                            <div
+                              class="node-insert-slot before"
+                              @drop="handleDropInNestedSlot($event, index, 'before', nestedIndex, 'before')"
+                              @dragover="handleDragOver"
+                              @dragleave="handleDragLeave"
+                            >
+                              <span class="insert-text">拖拽节点到此处（前）</span>
+                              <div class="nested-nodes">
+                                <div
+                                  v-for="(deepNestedNode, deepIndex) in nestedNode.beforeNodes || []"
+                                  :key="deepIndex"
+                                  class="nested-node"
+                                  :class="{ 'collapsed': deepNestedNode.collapsed }"
+                                >
+                                  <div class="nested-node-header" @click="toggleNodeCollapse(deepNestedNode)">
+                                    <span class="nested-node-type">{{ deepNestedNode.type.toUpperCase() }}</span>
+                                    <span class="nested-node-name">{{ deepNestedNode.name || deepNestedNode.type }}</span>
+                                    <span class="nested-node-toggle">{{ deepNestedNode.collapsed ? '▼' : '▲' }}</span>
+                                    <span class="nested-node-delete" @click.stop="removeDeepNestedNode(index, 'before', nestedIndex, 'before', deepIndex)">×</span>
+                                  </div>
+                                  <div class="nested-node-content" v-if="!deepNestedNode.collapsed">
+                                    <textarea
+                                      v-model="deepNestedNode.content"
+                                      placeholder="输入内容..."
+                                      class="nested-node-textarea"
+                                      @blur="updateCurrentTemplate"
+                                    ></textarea>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
                             <textarea
                               v-model="nestedNode.content"
                               placeholder="输入内容..."
                               class="nested-node-textarea"
                               @blur="updateCurrentTemplate"
                             ></textarea>
+
+                            <!-- 嵌套节点的后插槽 -->
+                            <div
+                              class="node-insert-slot after"
+                              @drop="handleDropInNestedSlot($event, index, 'before', nestedIndex, 'after')"
+                              @dragover="handleDragOver"
+                              @dragleave="handleDragLeave"
+                            >
+                              <span class="insert-text">拖拽节点到此处（后）</span>
+                              <div class="nested-nodes">
+                                <div
+                                  v-for="(deepNestedNode, deepIndex) in nestedNode.afterNodes || []"
+                                  :key="deepIndex"
+                                  class="nested-node"
+                                  :class="{ 'collapsed': deepNestedNode.collapsed }"
+                                >
+                                  <div class="nested-node-header" @click="toggleNodeCollapse(deepNestedNode)">
+                                    <span class="nested-node-type">{{ deepNestedNode.type.toUpperCase() }}</span>
+                                    <span class="nested-node-name">{{ deepNestedNode.name || deepNestedNode.type }}</span>
+                                    <span class="nested-node-toggle">{{ deepNestedNode.collapsed ? '▼' : '▲' }}</span>
+                                    <span class="nested-node-delete" @click.stop="removeDeepNestedNode(index, 'before', nestedIndex, 'after', deepIndex)">×</span>
+                                  </div>
+                                  <div class="nested-node-content" v-if="!deepNestedNode.collapsed">
+                                    <textarea
+                                      v-model="deepNestedNode.content"
+                                      placeholder="输入内容..."
+                                      class="nested-node-textarea"
+                                      @blur="updateCurrentTemplate"
+                                    ></textarea>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -133,12 +199,78 @@
                             <span class="nested-node-delete" @click.stop="removeNestedNode(index, 'after', nestedIndex)">×</span>
                           </div>
                           <div class="nested-node-content" v-if="!nestedNode.collapsed">
+                            <!-- 嵌套节点的前插槽 -->
+                            <div
+                              class="node-insert-slot before"
+                              @drop="handleDropInNestedSlot($event, index, 'after', nestedIndex, 'before')"
+                              @dragover="handleDragOver"
+                              @dragleave="handleDragLeave"
+                            >
+                              <span class="insert-text">拖拽节点到此处（前）</span>
+                              <div class="nested-nodes">
+                                <div
+                                  v-for="(deepNestedNode, deepIndex) in nestedNode.beforeNodes || []"
+                                  :key="deepIndex"
+                                  class="nested-node"
+                                  :class="{ 'collapsed': deepNestedNode.collapsed }"
+                                >
+                                  <div class="nested-node-header" @click="toggleNodeCollapse(deepNestedNode)">
+                                    <span class="nested-node-type">{{ deepNestedNode.type.toUpperCase() }}</span>
+                                    <span class="nested-node-name">{{ deepNestedNode.name || deepNestedNode.type }}</span>
+                                    <span class="nested-node-toggle">{{ deepNestedNode.collapsed ? '▼' : '▲' }}</span>
+                                    <span class="nested-node-delete" @click.stop="removeDeepNestedNode(index, 'after', nestedIndex, 'before', deepIndex)">×</span>
+                                  </div>
+                                  <div class="nested-node-content" v-if="!deepNestedNode.collapsed">
+                                    <textarea
+                                      v-model="deepNestedNode.content"
+                                      placeholder="输入内容..."
+                                      class="nested-node-textarea"
+                                      @blur="updateCurrentTemplate"
+                                    ></textarea>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
                             <textarea
                               v-model="nestedNode.content"
                               placeholder="输入内容..."
                               class="nested-node-textarea"
                               @blur="updateCurrentTemplate"
                             ></textarea>
+
+                            <!-- 嵌套节点的后插槽 -->
+                            <div
+                              class="node-insert-slot after"
+                              @drop="handleDropInNestedSlot($event, index, 'after', nestedIndex, 'after')"
+                              @dragover="handleDragOver"
+                              @dragleave="handleDragLeave"
+                            >
+                              <span class="insert-text">拖拽节点到此处（后）</span>
+                              <div class="nested-nodes">
+                                <div
+                                  v-for="(deepNestedNode, deepIndex) in nestedNode.afterNodes || []"
+                                  :key="deepIndex"
+                                  class="nested-node"
+                                  :class="{ 'collapsed': deepNestedNode.collapsed }"
+                                >
+                                  <div class="nested-node-header" @click="toggleNodeCollapse(deepNestedNode)">
+                                    <span class="nested-node-type">{{ deepNestedNode.type.toUpperCase() }}</span>
+                                    <span class="nested-node-name">{{ deepNestedNode.name || deepNestedNode.type }}</span>
+                                    <span class="nested-node-toggle">{{ deepNestedNode.collapsed ? '▼' : '▲' }}</span>
+                                    <span class="nested-node-delete" @click.stop="removeDeepNestedNode(index, 'after', nestedIndex, 'after', deepIndex)">×</span>
+                                  </div>
+                                  <div class="nested-node-content" v-if="!deepNestedNode.collapsed">
+                                    <textarea
+                                      v-model="deepNestedNode.content"
+                                      placeholder="输入内容..."
+                                      class="nested-node-textarea"
+                                      @blur="updateCurrentTemplate"
+                                    ></textarea>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -227,11 +359,27 @@
               <div
                 v-for="nodeType in availableNodeTypes"
                 :key="nodeType.type"
-                class="available-node"
-                draggable="true"
-                @dragstart="startDrag($event, nodeType)"
+                class="available-node-container"
               >
-                {{ nodeType.name }}
+                <div
+                  class="available-node"
+                  :class="{ 'expanded': safeExpandedNodes[nodeType.type] }"
+                  draggable="true"
+                  @dragstart="startDrag($event, nodeType)"
+                >
+                  <div class="node-header" @click="toggleAvailableNode(nodeType.type)">
+                    <span class="node-type">{{ nodeType.type.toUpperCase() }}</span>
+                    <span class="node-name">{{ nodeType.name }}</span>
+                    <span class="node-toggle">{{ safeExpandedNodes[nodeType.type] ? '▲' : '▼' }}</span>
+                  </div>
+                  <div class="node-preview" v-if="safeExpandedNodes[nodeType.type]">
+                    <textarea
+                      class="node-textarea"
+                      placeholder="节点预览内容..."
+                      readonly
+                    >{{ getDefaultContent(nodeType.type) }}</textarea>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -253,14 +401,16 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import SettingsView from './views/SettingsView.vue'
+import NestedNodeComponent from './components/NestedNodeComponent.vue'
 import { useChatStore } from './stores/chat'
 
 export default {
   name: 'App',
   components: {
-    SettingsView
+    SettingsView,
+    NestedNodeComponent
   },
   setup() {
     const isSidebarCollapsed = ref(false)
@@ -284,6 +434,21 @@ export default {
       { type: 'loop', name: 'Loop' }
     ])
 
+    // 可用节点展开状态 - 立即初始化以避免在模板中访问时未定义
+    const expandedNodes = ref({
+      'system': false,
+      'user': false,
+      'assistant': false,
+      'tool': false,
+      'condition': false,
+      'loop': false
+    })
+
+    // 确保expandedNodes始终可用的计算属性
+    const safeExpandedNodes = computed(() => {
+      return expandedNodes.value || {}
+    })
+
     onMounted(() => {
       // 从浏览器存储加载会话列表
       const savedSessions = localStorage.getItem('linkchat-sessions')
@@ -300,8 +465,8 @@ export default {
             title: '默认会话',
             template: {
               nodes: [
-                { type: 'system', content: 'You are a helpful assistant.' },
-                { type: 'user', content: '' }
+                { type: 'system', content: 'You are a helpful assistant.', beforeNodes: [], afterNodes: [], collapsed: false },
+                { type: 'user', content: '', beforeNodes: [], afterNodes: [], collapsed: false }
               ]
             }
           }
@@ -309,6 +474,13 @@ export default {
         currentSession.value = sessions.value[0]
         saveSessions()
       }
+
+      // 初始化expandedNodes，确保每个节点类型都有对应的展开状态
+      availableNodeTypes.value.forEach(nodeType => {
+        if (!expandedNodes.value.hasOwnProperty(nodeType.type)) {
+          expandedNodes.value[nodeType.type] = false
+        }
+      })
     })
 
     // 保存会话到浏览器存储
@@ -350,21 +522,115 @@ export default {
       currentView.value = view
     }
 
-    // 开始拖拽
-    const startDrag = (event, nodeType) => {
-      event.dataTransfer.setData('nodeType', JSON.stringify(nodeType))
-    }
-
     // 拖拽相关的响应式变量
     const isDragging = ref(false)
+
+    // 开始拖拽 - 显示预览
+    const startDrag = (event, nodeType) => {
+      event.dataTransfer.setData('nodeType', JSON.stringify(nodeType))
+
+      // 创建拖拽预览元素，模拟完整的节点（展开状态）
+      const preview = document.createElement('div')
+      preview.innerHTML = `
+        <div style="
+          width: 200px;
+          border: 1px solid #d9d0b7;
+          border-radius: 12px;
+          overflow: hidden;
+          background-color: white;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+          font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        ">
+          <div style="
+            padding: 12px;
+            background: linear-gradient(135deg, #e8dfca 0%, #d9d0b7 100%);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+          ">
+            <span style="
+              font-weight: bold;
+              color: white;
+              background: linear-gradient(135deg, #8b7d6b 0%, #7a6c5a 100%);
+              padding: 4px 10px;
+              border-radius: 15px;
+              font-size: 0.8em;
+              text-transform: uppercase;
+              letter-spacing: 0.5px;
+            ">${nodeType.type.toUpperCase()}</span>
+            <span style="
+              flex: 1;
+              margin: 0 12px;
+              color: #333;
+              font-weight: 500;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            ">${nodeType.name || nodeType.type}</span>
+            <span style="
+              margin: 0 5px;
+              cursor: pointer;
+              color: #8b7d6b;
+              font-size: 1.2em;
+            ">▲</span>
+            <span style="
+              cursor: pointer;
+              font-size: 1.4em;
+              color: #e74c3c;
+              width: 24px;
+              text-align: center;
+            ">×</span>
+          </div>
+          <div style="
+            padding: 12px;
+          ">
+            <textarea style="
+              width: 100%;
+              height: 60px;
+              border: 1px solid #d9d0b7;
+              border-radius: 8px;
+              padding: 8px;
+              resize: vertical;
+              font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+              background-color: #fefbf6;
+              color: #333;
+              font-size: 0.95rem;
+              line-height: 1.5;
+            " placeholder="输入内容..."></textarea>
+          </div>
+        </div>
+      `
+      preview.style.position = 'absolute'
+      preview.style.pointerEvents = 'none'
+      preview.style.zIndex = '9999'
+      preview.style.opacity = '0.95'
+      document.body.appendChild(preview)
+
+      // 跟随鼠标位置
+      const updatePosition = (e) => {
+        preview.style.left = e.pageX + 10 + 'px'
+        preview.style.top = e.pageY + 10 + 'px'
+      }
+
+      document.addEventListener('mousemove', updatePosition)
+      event.dataTransfer.setDragImage(preview, 0, 0)
+
+      // 清理预览元素
+      setTimeout(() => {
+        if (preview.parentNode) {
+          preview.parentNode.removeChild(preview)
+        }
+        document.removeEventListener('mousemove', updatePosition)
+      }, 100)
+    }
 
     // 切换节点折叠状态
     const toggleNodeCollapse = (node) => {
       if (!node.hasOwnProperty('collapsed')) {
-        node.collapsed = true
-      } else {
-        node.collapsed = !node.collapsed
+        node.collapsed = false  // 默认为展开状态
       }
+      node.collapsed = !node.collapsed
       updateCurrentTemplate()
     }
 
@@ -505,6 +771,101 @@ export default {
       saveSessions()
     }
 
+    // 拖拽结束，添加节点到嵌套节点的插槽
+    const handleDropInNestedSlot = (event, parentIndex, parentSlotType, nestedIndex, nestedSlotType) => {
+      event.preventDefault()
+      event.currentTarget.classList.remove('drag-over')
+
+      const nodeTypeData = event.dataTransfer.getData('nodeType')
+      if (nodeTypeData && currentSession.value) {
+        const nodeType = JSON.parse(nodeTypeData)
+
+        // 获取目标嵌套节点
+        let targetNestedNode
+        if (parentSlotType === 'before') {
+          targetNestedNode = currentSession.value.template.nodes[parentIndex].beforeNodes[nestedIndex]
+        } else if (parentSlotType === 'after') {
+          targetNestedNode = currentSession.value.template.nodes[parentIndex].afterNodes[nestedIndex]
+        }
+
+        // 创建新的深层嵌套节点
+        const newDeepNode = {
+          type: nodeType.type,
+          name: nodeType.name,
+          content: '',
+          collapsed: false,
+          beforeNodes: [],
+          afterNodes: []
+        }
+
+        // 根据插槽类型添加节点
+        if (nestedSlotType === 'before') {
+          if (!targetNestedNode.beforeNodes) targetNestedNode.beforeNodes = []
+          targetNestedNode.beforeNodes.push(newDeepNode)
+        } else if (nestedSlotType === 'after') {
+          if (!targetNestedNode.afterNodes) targetNestedNode.afterNodes = []
+          targetNestedNode.afterNodes.push(newDeepNode)
+        }
+
+        saveSessions()
+      }
+    }
+
+    // 移除深层嵌套节点
+    const removeDeepNestedNode = (parentIndex, parentSlotType, nestedIndex, deepSlotType, deepIndex) => {
+      let targetNestedNode
+      if (parentSlotType === 'before') {
+        targetNestedNode = currentSession.value.template.nodes[parentIndex].beforeNodes[nestedIndex]
+      } else if (parentSlotType === 'after') {
+        targetNestedNode = currentSession.value.template.nodes[parentIndex].afterNodes[nestedIndex]
+      }
+
+      if (deepSlotType === 'before') {
+        targetNestedNode.beforeNodes.splice(deepIndex, 1)
+      } else if (deepSlotType === 'after') {
+        targetNestedNode.afterNodes.splice(deepIndex, 1)
+      }
+
+      saveSessions()
+    }
+
+    // 通过信息移除嵌套节点
+    const removeNestedNodeByInfo = (info) => {
+      const { parentIndex, slotType, nodeIndex } = info
+      if (slotType === 'before') {
+        currentSession.value.template.nodes[parentIndex].beforeNodes.splice(nodeIndex, 1)
+      } else if (slotType === 'after') {
+        currentSession.value.template.nodes[parentIndex].afterNodes.splice(nodeIndex, 1)
+      }
+      saveSessions()
+    }
+
+    // 切换可用节点展开状态
+    const toggleAvailableNode = (nodeType) => {
+      if (!expandedNodes.value.hasOwnProperty(nodeType)) {
+        expandedNodes.value[nodeType] = false
+      }
+      expandedNodes.value[nodeType] = !expandedNodes.value[nodeType]
+    }
+
+    // 获取节点默认内容
+    const getDefaultContent = (nodeType) => {
+      const defaults = {
+        system: "系统提示：提供系统级别的指令或上下文信息。",
+        user: "用户输入：接收用户的查询或指令。",
+        assistant: "助手回复：AI助手的响应内容。",
+        tool: "工具调用：调用外部API或工具执行特定操作。",
+        condition: "条件判断：根据条件返回不同的分支。",
+        loop: "循环结构：重复执行特定操作直到满足条件。"
+      }
+      return defaults[nodeType] || `这是一个${nodeType}类型的节点。`
+    }
+
+    // 更新嵌套节点
+    const updateNestedNode = (info) => {
+      saveSessions()
+    }
+
     // 允许拖拽放置
     const handleDragOver = (event) => {
       event.preventDefault()
@@ -563,15 +924,22 @@ export default {
       startDrag,
       handleDrop,
       handleDropInSlot,
+      handleDropInNestedSlot,
       handleDropDefaultSlot,
       handleDragOver,
       handleDragLeave,
       toggleNodeCollapse,
       toggleDefaultNodeCollapse,
+      toggleAvailableNode,
+      getDefaultContent,
       removeNestedNode,
+      removeDeepNestedNode,
+      removeNestedNodeByInfo,
+      updateNestedNode,
       updateCurrentTemplate,
       removeTemplateNode,
-      closeSettings
+      closeSettings,
+      safeExpandedNodes  // 添加计算属性到返回对象中
     }
   }
 }
@@ -579,12 +947,13 @@ export default {
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   height: 100vh;
   overflow: hidden;
+  background-color: #f5f0e1;
 }
 
 .layout-container {
@@ -614,6 +983,9 @@ export default {
 .sidebar-content h3 {
   margin-top: 0;
   color: #333;
+  font-weight: 600;
+  border-bottom: 2px solid #8b7d6b;
+  padding-bottom: 8px;
 }
 
 .session-list {
@@ -623,54 +995,91 @@ export default {
 }
 
 .session-list li {
-  padding: 10px;
-  margin: 5px 0;
-  background-color: #d9d0b7;
-  border-radius: 5px;
+  padding: 12px 15px;
+  margin: 8px 0;
+  background: linear-gradient(to right, #e8dfca, #d9d0b7);
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.session-list li i {
+  margin-right: 10px;
+  color: #8b7d6b;
 }
 
 .session-list li:hover {
-  background-color: #c9c0a7;
+  background: linear-gradient(to right, #d9d0b7, #c9c0a7);
+  transform: translateX(3px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .session-list li.active {
-  background-color: #c9bfa7;
+  background: linear-gradient(to right, #c9bfa7, #b9b097);
   border-left: 4px solid #8b7d6b;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transform: translateX(3px);
 }
 
 .new-session-btn {
   width: 100%;
-  padding: 8px;
-  background-color: #8b7d6b; /* 深米色 */
+  padding: 12px;
+  background: linear-gradient(135deg, #8b7d6b 0%, #7a6c5a 100%); /* 深米色渐变 */
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .new-session-btn:hover {
-  background-color: #7a6c5a;
+  background: linear-gradient(135deg, #7a6c5a 0%, #6a5c4a 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.new-session-btn i {
+  margin-right: 8px;
 }
 
 .sidebar-footer {
   padding: 20px;
   border-top: 1px solid #d9d0b7;
+  background: linear-gradient(to bottom, rgba(232, 223, 202, 0.5), rgba(217, 208, 183, 0.5));
 }
 
 .settings-btn {
   width: 100%;
-  padding: 10px;
-  background-color: #8b7d6b; /* 深米色 */
+  padding: 12px;
+  background: linear-gradient(135deg, #8b7d6b 0%, #7a6c5a 100%); /* 深米色渐变 */
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .settings-btn:hover {
-  background-color: #7a6c5a;
+  background: linear-gradient(135deg, #7a6c5a 0%, #6a5c4a 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.settings-btn i {
+  margin-right: 8px;
 }
 
 .main-content {
@@ -680,24 +1089,29 @@ export default {
 }
 
 .view-toggle {
-  padding: 10px 20px;
-  background-color: #e8dfca; /* 浅米色 */
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #e8dfca 0%, #d9d0b7 100%); /* 浅米色渐变 */
   border-bottom: 1px solid #d9d0b7;
   display: flex;
   gap: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .view-toggle button {
-  padding: 8px 16px;
-  background-color: #d9d0b7;
+  padding: 10px 20px;
+  background-color: #f0ebe0;
   border: none;
-  border-radius: 4px;
+  border-radius: 20px;
   cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .view-toggle button.active {
-  background-color: #8b7d6b; /* 深米色 */
+  background: linear-gradient(135deg, #8b7d6b 0%, #7a6c5a 100%); /* 深米色渐变 */
   color: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .template-view {
@@ -733,25 +1147,43 @@ export default {
   margin-bottom: 15px;
   text-align: center;
   color: #666;
+  padding: 10px;
+  background: linear-gradient(to right, #f8f5f0, #f0ebe0);
+  border-radius: 8px;
+  border: 1px dashed #d9d0b7;
+}
+
+.template-instructions h3 {
+  margin: 0 0 5px 0;
+  color: #5a5248;
+  font-weight: 600;
 }
 
 .template-instructions p {
   margin: 5px 0;
   font-size: 0.9em;
+  color: #8b7d6b;
 }
 
 .template-area.drag-over {
   background-color: #f0ebe0;
   border: 2px dashed #8b7d6b;
-  border-radius: 8px;
+  border-radius: 12px;
+  box-shadow: inset 0 0 10px rgba(139, 125, 107, 0.2);
 }
 
 .template-node {
   margin-bottom: 15px;
   border: 1px solid #d9d0b7;
-  border-radius: 8px;
+  border-radius: 12px;
   overflow: hidden;
   background-color: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+.template-node:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
 }
 
 .node-header {
@@ -781,105 +1213,138 @@ export default {
   width: 100%;
   height: 100px;
   border: 1px solid #d9d0b7;
-  border-radius: 4px;
-  padding: 8px;
+  border-radius: 8px;
+  padding: 12px;
   resize: vertical;
-  font-family: inherit;
+  font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   background-color: #fefbf6;
+  color: #333;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.node-textarea:focus {
+  outline: none;
+  border-color: #8b7d6b;
+  box-shadow: 0 0 0 2px rgba(139, 125, 107, 0.2);
 }
 
 .node-header {
-  padding: 10px;
-  background-color: #e8dfca; /* 浅米色 */
+  padding: 12px;
+  background: linear-gradient(135deg, #e8dfca 0%, #d9d0b7 100%); /* 浅米色渐变 */
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
 }
 
 .node-header:hover {
-  background-color: #d9d0b7;
+  background: linear-gradient(135deg, #d9d0b7 0%, #c9c0a7 100%);
 }
 
 .node-type {
   font-weight: bold;
-  color: #333;
-  background-color: #8b7d6b;
   color: white;
-  padding: 2px 8px;
-  border-radius: 12px;
+  background: linear-gradient(135deg, #8b7d6b 0%, #7a6c5a 100%);
+  padding: 4px 10px;
+  border-radius: 15px;
   font-size: 0.8em;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .node-name {
   flex: 1;
-  margin: 0 10px;
+  margin: 0 12px;
   color: #333;
   font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .node-toggle {
   margin: 0 5px;
   cursor: pointer;
+  color: #8b7d6b;
+  font-size: 1.2em;
 }
 
 .node-delete {
   cursor: pointer;
-  font-size: 18px;
-  color: #8b7d6b;
+  font-size: 1.4em;
+  color: #e74c3c;
+  width: 24px;
+  text-align: center;
+  transition: transform 0.2s;
 }
 
 .node-delete:hover {
-  color: #e74c3c;
+  color: #c0392b;
+  transform: scale(1.2);
 }
 
 .template-node.collapsed {
-  height: 40px;
+  height: 44px;
+  overflow: hidden;
+}
+
+.template-node.collapsed .node-content {
+  display: none;
 }
 
 .node-content {
-  padding: 10px;
+  padding: 12px;
 }
 
 .node-insert-slot {
   border: 1px dashed #d9d0b7;
-  border-radius: 4px;
-  padding: 8px;
-  margin: 8px 0;
+  border-radius: 8px;
+  padding: 10px;
+  margin: 10px 0;
   text-align: center;
-  font-size: 0.8em;
+  font-size: 0.85em;
   color: #8b7d6b;
-  min-height: 30px;
-  transition: all 0.2s;
+  min-height: 36px;
+  transition: all 0.3s ease;
+  background-color: rgba(240, 235, 224, 0.3);
 }
 
 .node-insert-slot.before {
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 }
 
 .node-insert-slot.after {
-  margin-top: 5px;
-}
-
-.node-insert-slot.drag-over {
-  background-color: #f0ebe0;
-  border: 2px dashed #8b7d6b;
-}
-
-.insert-text {
-  color: #a9a194;
-}
-
-.nested-nodes {
   margin-top: 8px;
 }
 
+.node-insert-slot.drag-over {
+  background: linear-gradient(45deg, #f0ebe0, #e8dfca);
+  border: 2px dashed #8b7d6b;
+  transform: scale(1.02);
+}
+
+.insert-text {
+  color: #8b7d6b;
+  font-style: italic;
+}
+
+.nested-nodes {
+  margin-top: 10px;
+  padding-left: 15px;
+  border-left: 2px solid #d9d0b7;
+}
+
 .nested-node {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   border: 1px solid #d0c7b8;
-  border-radius: 6px;
+  border-radius: 10px;
   overflow: hidden;
-  background-color: #fcfaf5;
+  background: linear-gradient(to bottom, #fcfaf5, #f8f5f0);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .nested-node:last-child {
@@ -887,26 +1352,29 @@ export default {
 }
 
 .nested-node-header {
-  padding: 8px;
-  background-color: #e8dfca;
+  padding: 10px;
+  background: linear-gradient(135deg, #e8dfca 0%, #d9d0b7 100%);
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
   font-size: 0.9em;
+  font-weight: 500;
 }
 
 .nested-node-header:hover {
-  background-color: #d9d0b7;
+  background: linear-gradient(135deg, #d9d0b7 0%, #c9c0a7 100%);
 }
 
 .nested-node-type {
   font-weight: bold;
-  color: #5a5248;
-  background-color: #c9bfa7;
-  padding: 1px 6px;
-  border-radius: 10px;
-  font-size: 0.8em;
+  color: white;
+  background: linear-gradient(135deg, #a9a194 0%, #999184 100%);
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.75em;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .nested-node-name {
@@ -914,54 +1382,148 @@ export default {
   margin: 0 8px;
   color: #555;
   font-size: 0.9em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .nested-node-toggle {
   margin: 0 3px;
   cursor: pointer;
+  color: #8b7d6b;
+  font-size: 1.1em;
 }
 
 .nested-node-delete {
   cursor: pointer;
-  font-size: 16px;
-  color: #8b7d6b;
+  font-size: 1.2em;
+  color: #e74c3c;
+  width: 20px;
+  text-align: center;
+  transition: transform 0.2s;
 }
 
 .nested-node-delete:hover {
-  color: #e74c3c;
+  color: #c0392b;
+  transform: scale(1.1);
 }
 
 .nested-node.collapsed {
-  height: 30px;
+  height: 34px;
+  overflow: hidden;
 }
 
 .nested-node-content {
-  padding: 8px;
+  padding: 10px;
 }
 
 .nested-node-textarea {
   width: 100%;
   height: 60px;
   border: 1px solid #d0c7b8;
-  border-radius: 3px;
-  padding: 5px;
+  border-radius: 6px;
+  padding: 8px;
   resize: vertical;
-  font-family: inherit;
+  font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   background-color: #fefbf6;
   font-size: 0.9em;
+  color: #333;
+  transition: border-color 0.3s;
+}
+
+.nested-node-textarea:focus {
+  outline: none;
+  border-color: #8b7d6b;
+  box-shadow: 0 0 0 2px rgba(139, 125, 107, 0.2);
+}
+
+.available-node-container {
+  margin-bottom: 8px;
 }
 
 .available-node {
-  padding: 10px;
-  margin: 5px 0;
-  background-color: #d9d0b7;
-  border-radius: 4px;
+  background: linear-gradient(135deg, #e8dfca 0%, #d9d0b7 100%);
+  border-radius: 12px;
   cursor: grab;
   user-select: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  overflow: hidden;
 }
 
 .available-node:hover {
-  background-color: #c9c0a7;
+  background: linear-gradient(135deg, #d9d0b7 0%, #c9c0a7 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+}
+
+.available-node.expanded {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.node-header {
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.node-type {
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(135deg, #8b7d6b 0%, #7a6c5a 100%);
+  padding: 4px 10px;
+  border-radius: 15px;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.node-name {
+  flex: 1;
+  margin: 0 12px;
+  color: #333;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.node-toggle {
+  margin: 0 5px;
+  cursor: pointer;
+  color: #8b7d6b;
+  font-size: 1.2em;
+}
+
+.node-preview {
+  padding: 12px;
+  border-top: 1px solid #d9d0b7;
+  background-color: #fefbf6;
+}
+
+.node-textarea {
+  width: 100%;
+  height: 80px;
+  border: 1px solid #d9d0b7;
+  border-radius: 8px;
+  padding: 12px;
+  resize: vertical;
+  font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background-color: #fefbf6;
+  color: #333;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  transition: border-color 0.3s;
+  box-sizing: border-box;
+}
+
+.node-textarea:focus {
+  outline: none;
+  border-color: #8b7d6b;
+  box-shadow: 0 0 0 2px rgba(139, 125, 107, 0.2);
 }
 
 .chat-view {

@@ -162,17 +162,21 @@ export default {
   flex-direction: column;
   height: 100%;
   background-color: #fefbf6; /* 浅米白 */
+  font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
 .chat-header {
   padding: 15px 20px;
-  background-color: #e8dfca; /* 浅米色 */
+  background: linear-gradient(135deg, #e8dfca 0%, #d9d0b7 100%); /* 浅米色渐变 */
   border-bottom: 1px solid #d9d0b7;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .chat-header h3 {
   margin: 0;
   color: #333;
+  font-weight: 600;
+  font-size: 1.2rem;
 }
 
 .chat-messages {

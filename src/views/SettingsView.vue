@@ -229,6 +229,7 @@ export default {
   display: flex;
   flex-direction: column;
   background-color: #f5f0e1; /* 米色主题 */
+  font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
 .header {
