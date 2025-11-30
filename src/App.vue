@@ -10,24 +10,22 @@
               <i :class="isSidebarCollapsed ? 'fas fa-chevron-right' : 'fas fa-chevron-left'"></i>
             </button>
           </div>
-          <ul class="session-list" v-if="!isSidebarCollapsed">
+          <ul class="session-list" :class="{ 'collapsed': isSidebarCollapsed }">
             <li
               v-for="session in sessions"
               :key="session.id"
-              :class="{ 'active': currentSession && currentSession.id === session.id }"
+              :class="{ 'active': currentSession && currentSession.id === session.id, 'collapsed-session': isSidebarCollapsed }"
               @click="selectSession(session)"
+              :title="isSidebarCollapsed ? session.title : ''"
             >
               <i class="fas fa-comment session-icon"></i>
-              <span>{{ session.title }}</span>
+              <span v-if="!isSidebarCollapsed">{{ session.title }}</span>
             </li>
           </ul>
-          <button @click="createNewSession" class="new-session-btn" v-if="!isSidebarCollapsed">
-            <i class="fas fa-plus"></i> 新建会话
-          </button>
-          <!-- 当侧边栏收缩时，显示新建会话按钮 -->
-          <div class="collapsed-buttons" v-if="isSidebarCollapsed">
-            <button @click="createNewSession" class="collapsed-btn" title="新建会话">
+          <div class="sidebar-buttons">
+            <button @click="createNewSession" class="new-session-btn" :class="{ 'collapsed': isSidebarCollapsed }">
               <i class="fas fa-plus"></i>
+              <span v-if="!isSidebarCollapsed">新建会话</span>
             </button>
           </div>
         </div>
@@ -1118,6 +1116,14 @@ export default {
   transform: scale(1.05);
 }
 
+.session-list {
+  flex: 1; /* 让列表可以滚动 */
+}
+
+.session-list:not(.collapsed) {
+  margin-bottom: 12px;
+}
+
 .session-list li {
   display: flex;
   align-items: center;
@@ -1140,6 +1146,44 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+/* 收缩状态下的会话列表项 */
+.session-list.collapsed {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.session-list.collapsed li {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: 6px;
+  justify-content: center;
+  position: relative;
+}
+
+.session-list.collapsed li span {
+  display: none; /* 在收缩状态隐藏文字 */
+}
+
+.session-list.collapsed li:hover {
+  width: auto; /* 悬停时显示文字 */
+  padding: 8px 12px;
+}
+
+.session-list.collapsed li:hover span {
+  display: inline;
+  margin-left: 6px;
+}
+
+.session-list.collapsed li.collapsed-session {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .sidebar-content h3 {
@@ -1203,6 +1247,7 @@ export default {
   align-items: center;
   justify-content: center;
   font-size: 0.9rem; /* 更小的字体 */
+  margin-bottom: 12px; /* 添加底部间距 */
 }
 
 .new-session-btn:hover {
@@ -1214,6 +1259,31 @@ export default {
 .new-session-btn i {
   margin-right: 6px; /* 更小的间距 */
   font-size: 0.9rem; /* 更小的图标 */
+}
+
+.new-session-btn.collapsed {
+  width: 36px; /* 固定宽度 */
+  height: 36px;
+  padding: 0; /* 移除内边距 */
+  margin: 0 auto 12px auto; /* 居中并添加底部间距 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.new-session-btn.collapsed span {
+  display: none; /* 隐藏文字 */
+}
+
+.new-session-btn.collapsed:hover {
+  width: auto; /* 悬停时恢复原始宽度 */
+  padding: 8px 12px; /* 添加内边距 */
+  white-space: nowrap;
+}
+
+.new-session-btn.collapsed:hover span {
+  display: inline; /* 悬停时显示文字 */
+  margin-left: 6px;
 }
 
 .sidebar-footer {
