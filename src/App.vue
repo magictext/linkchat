@@ -1080,6 +1080,7 @@ export default {
   padding: 16px; /* 更小的内边距 */
   display: flex;
   flex-direction: column;
+  overflow: hidden; /* 防止溢出 */
 }
 
 .sidebar-header {
@@ -1155,6 +1156,8 @@ export default {
   gap: 6px;
   align-items: center;
   margin-bottom: 12px;
+  overflow-y: auto; /* 允许滚动 */
+  flex: 1; /* 让列表占据可用空间 */
 }
 
 .session-list.collapsed li {
@@ -1164,6 +1167,9 @@ export default {
   border-radius: 6px;
   justify-content: center;
   position: relative;
+  display: flex; /* 确保使用flexbox */
+  align-items: center;
+  justify-content: center;
 }
 
 .session-list.collapsed li span {
@@ -1173,6 +1179,7 @@ export default {
 .session-list.collapsed li:hover {
   width: auto; /* 悬停时显示文字 */
   padding: 8px 12px;
+  min-width: 36px; /* 确保最小宽度 */
 }
 
 .session-list.collapsed li:hover span {
@@ -1269,6 +1276,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: 36px; /* 确保最小宽度 */
 }
 
 .new-session-btn.collapsed span {
@@ -1279,6 +1287,7 @@ export default {
   width: auto; /* 悬停时恢复原始宽度 */
   padding: 8px 12px; /* 添加内边距 */
   white-space: nowrap;
+  min-width: 36px; /* 保持最小宽度 */
 }
 
 .new-session-btn.collapsed:hover span {
