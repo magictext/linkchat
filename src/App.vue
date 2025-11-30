@@ -1030,21 +1030,28 @@ export default {
 }
 
 .sidebar-footer.collapsed {
-  padding: 10px 8px; /* 调整收缩状态下的内边距 */
+  padding: 10px 0; /* 调整收缩状态下的内边距 */
   display: flex;
   justify-content: center;
+  align-items: center; /* 垂直居中 */
 }
 
 .sidebar-footer.collapsed .settings-btn {
   width: 36px; /* 固定宽度 */
   height: 36px;
+  min-width: 36px; /* 保持最小宽度 */
   padding: 0; /* 移除内边距 */
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0; /* 隐藏文字 */
+  font-size: 1rem; /* 保持图标大小 */
   overflow: hidden;
   transition: all 0.3s ease;
+  margin: 0; /* 重置margin */
+}
+
+.sidebar-footer.collapsed .settings-btn i {
+  margin: 0; /* 移除图标边距 */
 }
 
 .sidebar-footer.collapsed .settings-btn span {
@@ -1053,14 +1060,24 @@ export default {
 
 .sidebar-footer.collapsed .settings-btn:hover {
   width: auto; /* 悬停时恢复原始宽度 */
-  font-size: 0.8rem; /* 显示小字体 */
-  padding: 8px 10px; /* 添加内边距 */
+  font-size: 0.9rem; /* 显示正常字体大小 */
+  padding: 8px 12px; /* 添加内边距 */
   white-space: nowrap;
 }
 
 .sidebar-footer.collapsed .settings-btn:hover span {
   display: inline; /* 悬停时显示文字 */
   margin-left: 6px;
+}
+
+/* 确保收缩状态下按钮居中 */
+.sidebar-footer {
+  padding: 16px;
+  border-top: 1px solid #e5dfd0;
+  background: linear-gradient(to bottom, rgba(247, 243, 232, 0.5), rgba(238, 233, 221, 0.5));
+  display: flex;
+  justify-content: center; /* 确保按钮居中 */
+  align-items: center; /* 垂直居中 */
 }
 
 .sidebar-content {
